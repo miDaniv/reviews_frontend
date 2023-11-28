@@ -1,4 +1,4 @@
-// LoginForm.js
+// LoginForm.js (React)
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./LoginForm.css";
@@ -14,14 +14,14 @@ const LoginForm = () => {
       const response = await axios.post("http://localhost:8080/login", {
         login,
         password,
-    },{  
-      headers: {
-      'Content-Type': 'application/json',
-    },
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
-
+  
       console.log("Відповідь з сервера:", response.data);
-
+  
     } catch (error) {
       console.error("Помилка відправки форми:", error);
       setErrorMessage("Невірний логін або пароль");

@@ -38,7 +38,7 @@
     margin-bottom: 20px;
   }
   
-  #register-form input[type="submit"] {
+  #register-form input[type="button"] {
     width: 100%;
     padding: 12px;
     background-color: dodgerblue;
@@ -52,7 +52,7 @@
     transition: background-color 0.3s ease;
   }
   
-  #register-form input[type="submit"]:hover {
+  #register-form input[type="button"]:hover {
     background-color: deepskyblue;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   }

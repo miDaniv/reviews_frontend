@@ -9,7 +9,7 @@ const Home = () => {
       <nav style={styles.navigation}>
         <ul style={styles.navList}>
           <li style={styles.navItem}>
-            <Link to="/register" style={styles.navLink}>
+            <Link to="/about" style={styles.navLink}>
               About
             </Link>
           </li>
@@ -18,8 +18,26 @@ const Home = () => {
               Contact
             </Link>
           </li>
+          {/* Додайте посилання на сторінку користувача */}
+          <li style={styles.navItem}>
+            <Link to="/user" style={styles.navLink}>
+              User Profile
+            </Link>
+          </li>
+          {/* Додайте посилання на сторінку додавання фільму */}
+          <li style={styles.navItem}>
+            <Link to="/add-film" style={styles.navLink}>
+              Add Movie
+            </Link>
+          </li>
         </ul>
       </nav>
+      <div style={styles.searchContainer}>
+        <input type="text" placeholder="Search Movies" style={styles.searchInput} />
+        <Link to="/film-info">
+          <button style={styles.searchButton}>Search</button>
+        </Link>
+      </div>
       <Link to="/login">
         <button style={styles.loginButton}>Login</button>
       </Link>
@@ -59,6 +77,25 @@ const styles = {
     fontSize: '16px',
     fontWeight: 'bold',
   },
+  searchContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: '20px',
+  },
+  searchInput: {
+    padding: '8px',
+    marginRight: '10px',
+    width: '300px',
+  },
+  searchButton: {
+    padding: '8px 15px',
+    fontSize: '14px',
+    backgroundColor: '#007BFF',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+  },
   loginButton: {
     padding: '10px 20px',
     fontSize: '16px',
@@ -67,6 +104,7 @@ const styles = {
     border: 'none',
     borderRadius: '5px',
     cursor: 'pointer',
+    marginTop: '20px',
   },
 };
 

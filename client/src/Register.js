@@ -1,4 +1,3 @@
-// RegisterForm.js
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./RegisterForm.css";
@@ -10,31 +9,35 @@ const RegisterForm = () => {
   const [password, setPassword] = useState("");
   const [login, setLogin] = useState("");
 
-  const handleRegister = async () => {
+  const handleRegister = async (e) => {
+    e.preventDefault(); // Запобігає перезавантаженню сторінки
     try {
+      // Перевірка довжини паролю
       if (password.length < 3 || password.length > 15) {
         console.error("Помилка введення паролю: пароль повинен бути від 3 до 15 символів.");
         return;
       }
-  
+
+      // Перевірка унікальності імені користувача
       const checkUsernameResponse = await axios.post("http://localhost:8080/check-username", {
         username,
       });
-  
+
       if (!checkUsernameResponse.data.isUnique) {
         console.error("Помилка введення імені користувача: ім'я користувача вже існує.");
         return;
       }
-  
+
+      // Якщо усі перевірки успішні, відправляємо POST-запит на реєстрацію
       const response = await axios.post("http://localhost:8080/register", {
         username,
         email,
         password,
         login,
       });
-  
+
       console.log("Відповідь з сервера:", response.data);
-  
+
       setUsername("");
       setEmail("");
       setPassword("");
@@ -80,7 +83,7 @@ const RegisterForm = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <input type="submit" value="Register" onClick={handleRegister} />
+        <button type="button" onClick={handleRegister}>Register</button>
       </form>
       <p>
         Already have an account? <Link to="/login">Login here</Link>.
