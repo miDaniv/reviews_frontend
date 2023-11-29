@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import "./FilmInfoCSS.css"
+import { useParams } from 'react-router-dom';
+import './FilmInfoCSS.css';
 
-const MovieInfo = ({ match }) => {
+const MovieInfo = () => {
+  const { id } = useParams(); // Отримання ID з URL за допомогою react-router-dom
   const [movieData, setMovieData] = useState(null);
 
   useEffect(() => {
     const fetchMovieData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/film-info/${match.params.id}`);
+        const response = await axios.get(`http://localhost:8080/api/film-info/${id}`);
         setMovieData(response.data);
       } catch (error) {
         console.error('Error fetching movie data:', error);
@@ -16,7 +18,7 @@ const MovieInfo = ({ match }) => {
     };
 
     fetchMovieData();
-  }, [match.params.id]);
+  }, [id]); 
 
   if (!movieData) {
     return <div>Loading...</div>;
