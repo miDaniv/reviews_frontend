@@ -20,7 +20,7 @@ const Home = () => {
           </li>
           {/* Додайте посилання на сторінку користувача */}
           <li style={styles.navItem}>
-            <Link to="/users" style={styles.navLink}>
+            <Link to="/user" style={styles.navLink}>
               User Profile
             </Link>
           </li>

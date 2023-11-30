@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import './FilmInfoCSS.css';
 
 const MovieInfo = () => {
-  const { id } = useParams(); // Отримання ID з URL за допомогою react-router-dom
+  const { id } = useParams();
   const [movieData, setMovieData] = useState(null);
 
   useEffect(() => {

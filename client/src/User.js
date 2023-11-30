@@ -1,23 +1,36 @@
-import { useLoaderData } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import './UserPageCSS.css'
 
-const api = "http://localhost:8080/api/user";
+const UserInfo = () => {
+  const { id } = useParams();
+  const [userData, setUserData] = useState(null);
 
-export const userLoader = async ({ params }) => {
-  const res = await fetch(`${api}/${params.id}`);
-  const resJson = await res.json();
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/api/user/${id}`);
+        setUserData(response.data);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
 
-  return resJson;
-};
+    fetchUserData();
+  }, [id]);
 
-const User = () => {
-  const result = useLoaderData();
+  if (!userData) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
-      <h1>
-        {result.Id} - {result.Name}
-      </h1>
+      <h2>{userData.Name}</h2>
+      <p>Login: {userData.Login}</p>
+      <p>Email: {userData.Email}</p>
     </div>
   );
 };
 
-export default User;
+export default UserInfo;

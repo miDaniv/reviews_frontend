@@ -1,24 +1,36 @@
-.movie-info-container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .movie-info-heading {
-    font-size: 28px;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  .movie-info-item {
-    font-size: 16px;
-    margin-bottom: 10px;
-  }
-  
-  .loading-message {
-    font-size: 18px;
-    color: #007BFF;
-  }
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.loading {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 20px;
+  text-align: center;
+}
+
+.movie-info {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  color: #333;
+}
+
+p {
+  margin: 10px 0;
+  color: #555;
+}
