@@ -1,6 +1,6 @@
 // LoginForm.js (React)
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./LoginForm.css";
 import axios from "axios";
 
@@ -8,6 +8,7 @@ const LoginForm = () => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate(); 
 
   const handleLogin = async () => {
     try {
@@ -19,9 +20,15 @@ const LoginForm = () => {
           'Content-Type': 'application/json',
         },
       });
-  
+
+      const token = response.data.token;
+
+      localStorage.setItem('token', token);
+
       console.log("Відповідь з сервера:", response.data);
-  
+
+      navigate("/");
+      window.location.reload();
     } catch (error) {
       console.error("Помилка відправки форми:", error);
       setErrorMessage("Невірний логін або пароль");

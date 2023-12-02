@@ -1,16 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import './UserPageCSS.css'
+import './UserPageCSS.css';
 
 const UserInfo = () => {
-  const { id } = useParams();
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/user/${id}`);
+        // Отримати токен з localStorage
+        const token = localStorage.getItem('token');
+
+        // Перевірити чи токен існує
+        if (!token) {
+          // Обробити відсутність токену
+          return;
+        }
+
+        // Надіслати токен на сервер для авторизації
+        const response = await axios.get('http://localhost:8080/api/user', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        // Встановити дані користувача після успішного запиту
         setUserData(response.data);
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -18,7 +32,7 @@ const UserInfo = () => {
     };
 
     fetchUserData();
-  }, [id]);
+  }, []);
 
   if (!userData) {
     return <div>Loading...</div>;

@@ -1,26 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import CommentSection from './CommentSection';
 import './FilmInfoCSS.css';
 
 const MovieInfo = () => {
   const { id } = useParams();
   const [movieData, setMovieData] = useState(null);
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
-    const fetchMovieData = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/film-info/${id}`);
-        setMovieData(response.data);
+        // Отримати дані фільму
+        const movieResponse = await axios.get(`http://localhost:8080/api/film-info/${id}`);
+        setMovieData(movieResponse.data);
+
+        // Отримати дані користувача
+        const userResponse = await axios.get('http://localhost:8080/api/user', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+        setUserId(userResponse.data.Id);
       } catch (error) {
-        console.error('Error fetching movie data:', error);
+        console.error('Error fetching data:', error);
       }
     };
 
-    fetchMovieData();
-  }, [id]); 
+    fetchData();
+  }, [id]);
 
-  if (!movieData) {
+  if (!movieData || userId === null) {
     return <div>Loading...</div>;
   }
 
@@ -33,6 +44,8 @@ const MovieInfo = () => {
       <p>Duration: {movieData.Duration}</p>
       <p>Genres: {movieData.Genres}</p>
       <p>Description: {movieData.Description}</p>
+      <p>User ID: {userId}</p>
+      <CommentSection movieId={id} userId={userId} />
     </div>
   );
 };

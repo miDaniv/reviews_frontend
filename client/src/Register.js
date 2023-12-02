@@ -12,13 +12,11 @@ const RegisterForm = () => {
   const handleRegister = async (e) => {
     e.preventDefault(); // Запобігає перезавантаженню сторінки
     try {
-      // Перевірка довжини паролю
       if (password.length < 3 || password.length > 15) {
         console.error("Помилка введення паролю: пароль повинен бути від 3 до 15 символів.");
         return;
       }
 
-      // Перевірка унікальності імені користувача
       const checkUsernameResponse = await axios.post("http://localhost:8080/check-username", {
         username,
       });
@@ -28,7 +26,6 @@ const RegisterForm = () => {
         return;
       }
 
-      // Якщо усі перевірки успішні, відправляємо POST-запит на реєстрацію
       const response = await axios.post("http://localhost:8080/register", {
         username,
         email,
